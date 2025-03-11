@@ -77,8 +77,8 @@ from confirmations c ) cc
 on s.user_id = cc.user_id
 group by s.user_id
 
-Note: Difference between IFNULL and NULLIF
-With IFNULL, your decide what the replacement value should be if null while with NULLIF, if the result matches what you ask it to check, it returns null
-example of NULLIF; NULLIF(Age, 0): If Age is 0, it will be replaced with NULL else it will return Age
-example of IFNULL; IFNULL(salary, 0): If salary is NULL, it will be replaced with 0 else it will return salary
+-- Note: Difference between IFNULL and NULLIF
+-- With IFNULL, your decide what the replacement value should be if null while with NULLIF, if the result matches what you ask it to check, it returns null
+-- example of NULLIF; NULLIF(Age, 0): If Age is 0, it will be replaced with NULL else it will return Age
+-- example of IFNULL; IFNULL(salary, 0): If salary is NULL, it will be replaced with 0 else it will return salary
 
