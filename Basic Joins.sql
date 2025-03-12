@@ -1,4 +1,3 @@
-
 -- 1378. Replace Employee ID With The Unique Identifier
 select case when eu.id = e.id then unique_id
             when eu.id != e.id then NULL end as unique_id, e.name from employees e
