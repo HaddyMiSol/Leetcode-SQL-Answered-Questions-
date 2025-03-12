@@ -12,3 +12,5 @@ group by p.product_id
 select p.project_id, ifnull(round((sum(e.experience_years)/count(p.project_id)),2),0) average_years from project p
 join employee e on p.employee_id = e.employee_id
 group by p.project_id
+
+-- 1633. Percentage of Users Attended a Contest
