@@ -14,3 +14,13 @@ join employee e on p.employee_id = e.employee_id
 group by p.project_id
 
 -- 1633. Percentage of Users Attended a Contest
+select r.contest_id, round(
+        (count(distinct r.user_id) * 100.0) / (select count(distinct user_id) from users),2)  percentage
+from register r
+group by r.contest_id
+order by percentage desc, r.contest_id asc;
+
+-- 1211. Queries Quality and Percentage
+select query_name, round(avg(rating/position),2) quality, round(sum(case when rating < 3 then 1 else 0 end) * 100.0 / count(*), 2) poor_query_percentage
+from queries
+group by query_name
