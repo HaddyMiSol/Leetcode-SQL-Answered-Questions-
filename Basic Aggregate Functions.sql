@@ -24,3 +24,20 @@ order by percentage desc, r.contest_id asc;
 select query_name, round(avg(rating/position),2) quality, round(sum(case when rating < 3 then 1 else 0 end) * 100.0 / count(*), 2) poor_query_percentage
 from queries
 group by query_name
+
+-- 1193. Monthly Transactions I
+select DATE_FORMAT(trans_date, '%Y-%m') as month, country, count(*) trans_count, 
+sum(case when state ='approved' then 1 else 0 end) approved_count, 
+sum(amount) trans_total_amount, 
+sum(case when state ='approved' then amount else 0 end) approved_total_amount
+from transactions
+group by month, country
+
+-- 1174. Immediate Food Delivery II
+select
+    round(avg(case when customer_pref_delivery_date = order_date then 1.0 else 0 end) * 100, 2) immediate_percentage
+from delivery
+where (customer_id, order_date) in (
+    select customer_id, MIN(order_date)
+    from delivery
+    group by customer_id)
