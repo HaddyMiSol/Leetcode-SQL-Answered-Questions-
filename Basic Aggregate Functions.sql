@@ -41,3 +41,13 @@ where (customer_id, order_date) in (
     select customer_id, MIN(order_date)
     from delivery
     group by customer_id)
+
+-- 550. Game Play Analysis IV
+select round(count(distinct a2.player_id) * 1.0
+             /
+             count(distinct a1.player_id) * 1.0,
+             2) as fraction
+       from activity a1
+            left join activity a2
+                      on a1.player_id = a2.player_id
+                         and a1.event_date = date_add(a2.event_date, interval -1 day);
