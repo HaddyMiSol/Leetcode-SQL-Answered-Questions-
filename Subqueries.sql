@@ -27,3 +27,14 @@ group by m.movie_id
 order by avg(rating) desc, mm.title asc
 limit 1
 )
+
+-- 1321. Restaurant Growth
+with daycum as 
+(select visited_on,sum(amount) as amount from customer group by visited_on)
+
+select a.visited_on, round(sum(b.amount),2) amount, round(avg(b.amount),2) average_amount
+from daycum a, daycum b
+where datediff(a.visited_on, b.visited_on) between 0 and 6
+group by a.visited_on
+having count(*) >6
+order by a.visited_on
