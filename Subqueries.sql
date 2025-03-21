@@ -38,3 +38,28 @@ where datediff(a.visited_on, b.visited_on) between 0 and 6
 group by a.visited_on
 having count(*) >6
 order by a.visited_on
+
+
+-- 602. Friend Requests II: Who Has the Most Friends
+select id, count(*) num from
+(select requester_id as id from requestaccepted
+union all
+select accepter_id as id from requestaccepted) ids
+group by id
+order by count(*) desc
+limit 1
+
+-- 585. Investments in 2016
+select round(sum(tiv_2016),2) tiv_2016 from insurance
+where tiv_2015 in
+(select tiv_2015 from insurance group by tiv_2015 having count(*) > 1)
+and (lat, lon) in
+(select lat,lon from insurance group by lat, lon having count(*) = 1 )
+
+-- 185. Department Top Three Salaries
+select department, employee, salary from
+(select d.name as department, e.name as employee, e.salary salary, 
+dense_rank() over(partition by d.name order by e.salary desc) as rn from employee e
+join department d
+on e.departmentid = d.id) as rs
+where rn <=3
