@@ -69,7 +69,7 @@ HAVING
     COUNT(DISTINCT e1.id) >= 5;
 
 -- 1934. Confirmation Rate
-select s.user_id, round(IFNULL(sum(cc.confirmed_action) / NULLIF(sum(cc.all_action), 0), 0), 2) confirmation_rate from signups s
+select s.user_id, round(IFNULL(sum(cc.confirmed_action) / NULLIF(sum(cc.all_action), 0), 0), 2) confirmation_rate from signups s --note that the IFNULL is for before division if null exist in either the numerator or the denominator
 left join (select user_id, (case when action = 'confirmed' then 1 else 0 end)confirmed_action,
                             (case when action = 'confirmed' or action = 'timeout'  then 1 else 0 end) all_action 
 from confirmations c ) cc
